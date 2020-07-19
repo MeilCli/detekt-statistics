@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  detekt:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -28,8 +28,8 @@ jobs:
           java-version: 1.8
       - name: Grant permission
         run: chmod +x gradlew
-      - name: Run lint
-        run: ./gradlew lintDebug
+      - name: Run detekt
+        run: ./gradlew detekt
       - uses: MeilCli/detekt-statistics@v1
         with:
           lint_xml_file_path: 'reports/detekt/**/**.xml' # change your lint result path
@@ -122,7 +122,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  detekt:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -136,7 +136,7 @@ jobs:
           java-version: 1.8
       - name: Grant permission
         run: chmod +x Librarian/gradlew
-      - name: Run lint
+      - name: Run detekt
         run: cd Librarian && ./gradlew detekt
       - uses: MeilCli/detekt-statistics@v1
         with:
