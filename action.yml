@@ -1,0 +1,52 @@
+name: 'detekt statistics'
+description: 'detekt statistics action, aggregate warning counts, generate chart'
+author: 'MeilCli'
+branding:
+  icon: activity
+  color: blue
+inputs:
+  repository:
+    description: 'running repository, format: owner/repository'
+    required: true
+    default: ${{ github.repository }}
+  github_token:
+    description: 'github token, using to push data branch'
+    required: true
+    default: ${{ github.token }}
+  detekt_xml_file_path:
+    description: 'detekt reported xml file paths, enable glob pattern'
+    required: true
+  detekt_xml_file_path_follow_symbolic_links:
+    description: 'detekt reported xml file paths glob pattern`s follow symbolic links option'
+    required: true
+    default: 'false'
+  data_branch:
+    description: 'the saving data branch, this branch is created by this action. if want disable this feature, put empty string'
+    default: 'data/detekt'
+  data_commit_user:
+    description: 'the saving data commit user'
+    default: 'github-action'
+  data_commit_email:
+    description: 'the saving data commit user`s email'
+    default: '41898282+github-actions[bot]@users.noreply.github.com'
+  data_json_file_path:
+    description: 'the saving data json file path, this file is created at data branch'
+    default: 'data.json'
+  data_chart_file_path:
+    description: 'the data transition chart png image path, this file is created at your checkouted branch'
+    default: 'data.png'
+  severity_chart_file_path:
+    description: 'the severity chart png image path, this file is created at your checkouted branch'
+    required: true
+    default: 'severity.png'
+  report_json_file_path:
+    description: 'the report json file path, this file is created at your checkouted branch'
+    required: true
+    default: 'report.json'
+  report_text_file_path:
+    description: 'the report text file path, this file is created at your checkouted branch'
+    required: true
+    default: 'report.txt'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
