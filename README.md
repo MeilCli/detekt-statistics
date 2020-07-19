@@ -32,7 +32,7 @@ jobs:
         run: ./gradlew detekt
       - uses: MeilCli/detekt-statistics@v1
         with:
-          lint_xml_file_path: 'reports/detekt/**/**.xml' # change your lint result path
+          detekt_xml_file_path: 'reports/detekt/**/**.xml' # change your detekt result path
       - uses: MeilCli/slack-upload-file@v1
         with:
           slack_token: ${{ secrets.SLACK_TOKEN }}
@@ -76,7 +76,7 @@ You can also pin to a [specific release](https://github.com/MeilCli/detekt-stati
   - default: `false`
 - `data_branch`
   - the saving data branch, this branch is created by this action. if want disable this feature, put empty string
-  - default: `data/lint`
+  - default: `data/detekt`
 - `data_commit_user`
   - the saving data commit user
   - default: `github-action`
@@ -140,7 +140,7 @@ jobs:
         run: cd Librarian && ./gradlew detekt
       - uses: MeilCli/detekt-statistics@v1
         with:
-          lint_xml_file_path: 'Librarian/reports/detekt/**/**.xml'
+          detekt_xml_file_path: 'Librarian/reports/detekt/**/**.xml'
       # generate paths:
       # - report.txt
       # - report.json
