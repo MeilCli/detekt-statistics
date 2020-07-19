@@ -1,6 +1,6 @@
 # detekt-statistics
 ![CI](https://github.com/MeilCli/detekt-statistics/workflows/CI/badge.svg)  
-Generate detekt statistics action
+Generate [detekt](https://github.com/detekt/detekt) statistics action
 
 This action generate some chart image and report file:
 |data transition|severity|
