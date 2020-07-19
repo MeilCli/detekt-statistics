@@ -3,9 +3,9 @@
 Generate detekt statistics action
 
 This action generate some chart image and report file:
-|data transition|severity|priority|
-|:--:|:--:|:--:|
-|![](/images/data.png)|![](/images/severity.png)|![](/images/priority.png)|
+|data transition|severity|
+|:--:|:--:|
+|![](/images/data.png)|![](/images/severity.png)|
 
 ## Required
 - This action can execute only linux runner
