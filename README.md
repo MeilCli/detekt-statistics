@@ -1,5 +1,5 @@
 # detekt-statistics
-![CI](https://github.com/MeilCli/android-lint-statistics/workflows/CI/badge.svg)  
+![CI](https://github.com/MeilCli/detekt-statistics/workflows/CI/badge.svg)  
 Generate detekt statistics action
 
 This action generate some chart image and report file:
