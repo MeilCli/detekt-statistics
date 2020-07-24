@@ -2,11 +2,11 @@ import { parse } from "../src/parse";
 
 const testXml = `<?xml version="1.0" encoding="utf-8"?>
 <checkstyle version="4.3">
-<file name="Librarian\sample\feature\src\main\kotlin\net\meilcli\librarian\sample\dynamic\feature\Test.kt">
+<file name="Librarian\\sample\\feature\\src\\main\\kotlin\\net\\meilcli\\librarian\\sample\\dynamic\\feature\\Test.kt">
 	<error line="3" column="12" severity="info" message="The class or object Test is empty." source="detekt.EmptyClassBlock" />
 	<error line="3" column="12" severity="warning" message="Unnecessary block (&quot;{}&quot;)" source="detekt.NoEmptyClassBody" />
 </file>
-<file name="Librarian\sample\feature\src\main\kotlin\net\meilcli\librarian\sample\dynamic\feature\Test.kt">
+<file name="Librarian\\sample\\feature\\src\\main\\kotlin\\net\\meilcli\\librarian\\sample\\dynamic\\feature\\Test.kt">
 	<error line="3" column="12" severity="info" message="The class or object Test is empty." source="detekt.EmptyClassBlock" />
 </file>
 </checkstyle>
@@ -20,7 +20,7 @@ const testEmptyXml1 = `<?xml version="1.0" encoding="utf-8"?>
 const testEmptyXml2 = `
 <?xml version="1.0" encoding="utf-8"?>
 <checkstyle version="4.3">
-<file name="Librarian\sample\feature\src\main\kotlin\net\meilcli\librarian\sample\dynamic\feature\Test.kt">
+<file name="Librarian\\sample\\feature\\src\\main\\kotlin\\net\\meilcli\\librarian\\sample\\dynamic\\feature\\Test.kt">
 </file>
 </checkstyle>
 `;
