@@ -28,7 +28,7 @@ jobs:
         with:
           commit-message: 'update actions'
           title: 'update actions'
-          labels: 'action'
+          labels: 'Action'
           assignees: 'MeilCli'
           reviewers: 'MeilCli'
           branch: 'update/action'
