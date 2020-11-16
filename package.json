@@ -15,7 +15,7 @@
     "dependencies": {
         "@actions/core": "^1.2.5",
         "@actions/exec": "^1.0.4",
-        "@actions/glob": "^0.1.0",
+        "@actions/glob": "^0.1.1",
         "canvas": "^2.6.1",
         "chart.js": "^2.9.3",
         "xml2js": "^0.4.23"
