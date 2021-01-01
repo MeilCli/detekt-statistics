@@ -148,6 +148,9 @@ jobs:
       # - severity.png
 ```
 
+## Contributing
+see [Contributing.md](./.github/CONTRIBUTING.md)
+
 ## License
 MIT License
 
