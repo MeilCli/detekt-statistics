@@ -1,4 +1,3 @@
-module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -34575,7 +34574,7 @@ module.exports = require(__nccwpck_require__.ab + "build/Release/canvas.node")
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"_args\":[[\"canvas@2.7.0\",\"/home/runner/work/detekt-statistics/detekt-statistics\"]],\"_from\":\"canvas@2.7.0\",\"_id\":\"canvas@2.7.0\",\"_inBundle\":false,\"_integrity\":\"sha512-pzCxtkHb+5su5MQjTtepMDlIOtaXo277x0C0u3nMOxtkhTyQ+h2yNKhlROAaDllWgRyePAUitC08sXw26Eb6aw==\",\"_location\":\"/canvas\",\"_phantomChildren\":{},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"canvas@2.7.0\",\"name\":\"canvas\",\"escapedName\":\"canvas\",\"rawSpec\":\"2.7.0\",\"saveSpec\":null,\"fetchSpec\":\"2.7.0\"},\"_requiredBy\":[\"/\"],\"_resolved\":\"https://registry.npmjs.org/canvas/-/canvas-2.7.0.tgz\",\"_spec\":\"2.7.0\",\"_where\":\"/home/runner/work/detekt-statistics/detekt-statistics\",\"author\":{\"name\":\"TJ Holowaychuk\",\"email\":\"tj@learnboost.com\"},\"binary\":{\"module_name\":\"canvas\",\"module_path\":\"build/Release\",\"host\":\"https://github.com/Automattic/node-canvas/releases/download/\",\"remote_path\":\"v{version}\",\"package_name\":\"{module_name}-v{version}-{node_abi}-{platform}-{libc}-{arch}.tar.gz\"},\"browser\":\"browser.js\",\"bugs\":{\"url\":\"https://github.com/Automattic/node-canvas/issues\"},\"contributors\":[{\"name\":\"Nathan Rajlich\",\"email\":\"nathan@tootallnate.net\"},{\"name\":\"Rod Vagg\",\"email\":\"r@va.gg\"},{\"name\":\"Juriy Zaytsev\",\"email\":\"kangax@gmail.com\"}],\"dependencies\":{\"nan\":\"^2.14.0\",\"node-pre-gyp\":\"^0.15.0\",\"simple-get\":\"^3.0.3\"},\"description\":\"Canvas graphics API backed by Cairo\",\"devDependencies\":{\"@types/node\":\"^10.12.18\",\"assert-rejects\":\"^1.0.0\",\"dtslint\":\"^0.5.3\",\"express\":\"^4.16.3\",\"mocha\":\"^5.2.0\",\"pixelmatch\":\"^4.0.2\",\"standard\":\"^12.0.1\"},\"engines\":{\"node\":\">=6\"},\"files\":[\"binding.gyp\",\"lib/\",\"src/\",\"util/\",\"types/index.d.ts\"],\"homepage\":\"https://github.com/Automattic/node-canvas\",\"keywords\":[\"canvas\",\"graphic\",\"graphics\",\"pixman\",\"cairo\",\"image\",\"images\",\"pdf\"],\"license\":\"MIT\",\"main\":\"index.js\",\"name\":\"canvas\",\"repository\":{\"type\":\"git\",\"url\":\"git://github.com/Automattic/node-canvas.git\"},\"scripts\":{\"benchmark\":\"node benchmarks/run.js\",\"dtslint\":\"dtslint types\",\"install\":\"node-pre-gyp install --fallback-to-build\",\"lint\":\"standard examples/*.js test/server.js test/public/*.js benchmarks/run.js lib/context2d.js util/has_lib.js browser.js index.js\",\"prebenchmark\":\"node-gyp build\",\"pretest-server\":\"node-gyp build\",\"test\":\"mocha test/*.test.js\",\"test-server\":\"node test/server.js\"},\"types\":\"types/index.d.ts\",\"version\":\"2.7.0\"}");
+module.exports = JSON.parse('{"_args":[["canvas@2.7.0","/home/runner/work/detekt-statistics/detekt-statistics"]],"_from":"canvas@2.7.0","_id":"canvas@2.7.0","_inBundle":false,"_integrity":"sha512-pzCxtkHb+5su5MQjTtepMDlIOtaXo277x0C0u3nMOxtkhTyQ+h2yNKhlROAaDllWgRyePAUitC08sXw26Eb6aw==","_location":"/canvas","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"canvas@2.7.0","name":"canvas","escapedName":"canvas","rawSpec":"2.7.0","saveSpec":null,"fetchSpec":"2.7.0"},"_requiredBy":["/"],"_resolved":"https://registry.npmjs.org/canvas/-/canvas-2.7.0.tgz","_spec":"2.7.0","_where":"/home/runner/work/detekt-statistics/detekt-statistics","author":{"name":"TJ Holowaychuk","email":"tj@learnboost.com"},"binary":{"module_name":"canvas","module_path":"build/Release","host":"https://github.com/Automattic/node-canvas/releases/download/","remote_path":"v{version}","package_name":"{module_name}-v{version}-{node_abi}-{platform}-{libc}-{arch}.tar.gz"},"browser":"browser.js","bugs":{"url":"https://github.com/Automattic/node-canvas/issues"},"contributors":[{"name":"Nathan Rajlich","email":"nathan@tootallnate.net"},{"name":"Rod Vagg","email":"r@va.gg"},{"name":"Juriy Zaytsev","email":"kangax@gmail.com"}],"dependencies":{"nan":"^2.14.0","node-pre-gyp":"^0.15.0","simple-get":"^3.0.3"},"description":"Canvas graphics API backed by Cairo","devDependencies":{"@types/node":"^10.12.18","assert-rejects":"^1.0.0","dtslint":"^0.5.3","express":"^4.16.3","mocha":"^5.2.0","pixelmatch":"^4.0.2","standard":"^12.0.1"},"engines":{"node":">=6"},"files":["binding.gyp","lib/","src/","util/","types/index.d.ts"],"homepage":"https://github.com/Automattic/node-canvas","keywords":["canvas","graphic","graphics","pixman","cairo","image","images","pdf"],"license":"MIT","main":"index.js","name":"canvas","repository":{"type":"git","url":"git://github.com/Automattic/node-canvas.git"},"scripts":{"benchmark":"node benchmarks/run.js","dtslint":"dtslint types","install":"node-pre-gyp install --fallback-to-build","lint":"standard examples/*.js test/server.js test/public/*.js benchmarks/run.js lib/context2d.js util/has_lib.js browser.js index.js","prebenchmark":"node-gyp build","pretest-server":"node-gyp build","test":"mocha test/*.test.js","test-server":"node test/server.js"},"types":"types/index.d.ts","version":"2.7.0"}');
 
 /***/ }),
 
@@ -34707,8 +34706,9 @@ module.exports = require("zlib");;
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -34745,10 +34745,13 @@ module.exports = require("zlib");;
 /******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
-/******/ 	__nccwpck_require__.ab = __dirname + "/";/************************************************************************/
-/******/ 	// module exports must be returned from runtime so entry inlining is disabled
+/******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";/************************************************************************/
+/******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(3109);
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(3109);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;
