@@ -18,7 +18,7 @@
         "@actions/exec": "^1.0.4",
         "@actions/glob": "^0.1.1",
         "canvas": "^2.7.0",
-        "chart.js": "^2.9.4",
+        "chart.js": "^3.3.0",
         "xml2js": "^0.4.23"
     },
     "devDependencies": {
