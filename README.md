@@ -7,6 +7,8 @@ This action generate some chart image and report file:
 |:--:|:--:|
 |![](/images/data.png)|![](/images/severity.png)|
 
+**v2 was released, but it is not debugging. If you have some problem, please report issue**
+
 ## Required
 - This action can execute only linux runner
 - Install dependencies before executing this action
@@ -33,7 +35,9 @@ jobs:
         run: chmod +x gradlew
       - name: Run detekt
         run: ./gradlew detekt
-      - uses: MeilCli/detekt-statistics@v1
+      - name: install for canvas
+        run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - uses: MeilCli/android-lint-statistics@v2
         with:
           detekt_xml_file_path: 'reports/detekt/**/**.xml' # change your detekt result path
       - uses: MeilCli/slack-upload-file@v1
