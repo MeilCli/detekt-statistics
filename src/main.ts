@@ -27,7 +27,9 @@ async function run() {
         }
         isInitialBranch = await git.checkoutDataBranch(config);
     } catch (error) {
-        core.setFailed(error.message);
+        if (error instanceof Error) {
+            core.setFailed(error.message);
+        }
         return;
     }
     let report: Report;
@@ -40,7 +42,9 @@ async function run() {
         await git.commit(config, isInitialBranch);
         await git.pushDataBranch(config);
     } catch (error) {
-        core.setFailed(error.message);
+        if (error instanceof Error) {
+            core.setFailed(error.message);
+        }
         return;
     } finally {
         await git.checkoutBranch(mainBranch);
@@ -52,7 +56,9 @@ async function run() {
             await renderData(data, config.dataChartFilePath);
         }
     } catch (error) {
-        core.setFailed(error.message);
+        if (error instanceof Error) {
+            core.setFailed(error.message);
+        }
     }
 }
 

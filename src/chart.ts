@@ -74,21 +74,21 @@ export async function renderSeverity(report: Report, fileName: string) {
         },
         options: {
             scales: {
-                yAxes: [
-                    {
-                        ticks: {
-                            beginAtZero: true,
-                        },
+                y: {
+                    beginAtZero: true,
+                },
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    font: {
+                        size: 18,
                     },
-                ],
-            },
-            title: {
-                display: true,
-                fontSize: 18,
-                text: "Severity",
-            },
-            legend: {
-                display: false,
+                    text: "Severity",
+                },
+                legend: {
+                    display: false,
+                },
             },
         },
     };
@@ -111,53 +111,53 @@ export async function renderData(data: Data[], fileName: string) {
                     label: "All",
                     borderColor: "rgba(35, 87, 177, 1)",
                     backgroundColor: "rgba(35, 87, 177, 0.2)",
-                    lineTension: 0,
+                    tension: 0,
                     data: takeData.map((x) => x.all),
                 },
                 {
                     label: "Info",
                     borderColor: "rgba(0, 255, 255, 1)",
                     backgroundColor: "rgba(0, 255, 255, 0.2)",
-                    lineTension: 0,
+                    tension: 0,
                     data: takeData.map((x) => x.info),
                 },
                 {
                     label: "Warning",
                     borderColor: "rgba(0, 128, 0, 1)",
                     backgroundColor: "rgba(0, 128, 0, 0.2)",
-                    lineTension: 0,
+                    tension: 0,
                     data: takeData.map((x) => x.warning),
                 },
                 {
                     label: "Error",
                     borderColor: "rgba(255, 0, 0, 1)",
                     backgroundColor: "rgba(255, 0, 0, 0.2)",
-                    lineTension: 0,
+                    tension: 0,
                     data: takeData.map((x) => x.error),
                 },
                 {
                     label: "Fatal",
                     borderColor: "rgba(128, 0, 0, 1)",
                     backgroundColor: "rgba(128, 0, 0, 0.2)",
-                    lineTension: 0,
+                    tension: 0,
                     data: takeData.map((x) => x.fatal),
                 },
             ],
         },
         options: {
             scales: {
-                yAxes: [
-                    {
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                    },
-                ],
+                y: {
+                    beginAtZero: true,
+                },
             },
-            title: {
-                display: true,
-                fontSize: 18,
-                text: "Transition",
+            plugins: {
+                title: {
+                    display: true,
+                    font: {
+                        size: 18,
+                    },
+                    text: "Transition",
+                },
             },
         },
     };
