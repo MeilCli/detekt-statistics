@@ -9,6 +9,9 @@ This action generate some chart image and report file:
 
 ## Required
 - This action can execute only linux runner
+- Install dependencies before executing this action
+  - `sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev`
+  - Because [Automattic/node-canvas](https://github.com/Automattic/node-canvas) is required
 
 ## Example
 Simple example your android project repository, using [MeilCli/slack-upload-file](https://github.com/MeilCli/slack-upload-file) to notify slack

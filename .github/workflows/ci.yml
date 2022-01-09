@@ -17,6 +17,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: install for canvas
+        run: sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
       - uses: actions/cache@v2
         with:
           path: node_modules
@@ -24,7 +26,7 @@ jobs:
           restore-keys: |
             ${{ runner.OS }}-build-${{ hashFiles('package.json') }}-
             ${{ runner.OS }}-build-
-      - run: npm install
+      - run: npm install --build-from-source
       - run: npm run build
       - run: npm run test
       - run: npm run lint:report
