@@ -23,7 +23,7 @@
     },
     "devDependencies": {
         "@types/chart.js": "^2.9.35",
-        "@types/jest": "^27.4.0",
+        "@types/jest": "^27.4.1",
         "@types/node": "^17.0.21",
         "@types/xml2js": "^0.4.9",
         "@typescript-eslint/eslint-plugin": "^5.12.1",
