@@ -5735,7 +5735,17 @@ module.exports = { DOMMatrix, DOMPoint }
 "use strict";
 
 
-module.exports = __nccwpck_require__(3756)
+const bindings = __nccwpck_require__(3756)
+
+module.exports = bindings
+
+bindings.ImageData.prototype.toString = function () {
+	return '[object ImageData]'
+}
+
+bindings.CanvasGradient.prototype.toString = function () {
+	return '[object CanvasGradient]'
+}
 
 
 /***/ }),
@@ -6159,6 +6169,10 @@ const { DOMMatrix } = __nccwpck_require__(5812)
 
 bindings.CanvasPatternInit(DOMMatrix)
 module.exports = bindings.CanvasPattern
+
+bindings.CanvasPattern.prototype.toString = function () {
+	return '[object CanvasPattern]'
+}
 
 
 /***/ }),
@@ -27810,7 +27824,7 @@ module.exports = require("zlib");
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["canvas@2.9.0","/home/runner/work/detekt-statistics/detekt-statistics"]],"_from":"canvas@2.9.0","_id":"canvas@2.9.0","_inBundle":false,"_integrity":"sha512-0l93g7uxp7rMyr7H+XRQ28A3ud0dKIUTIEkUe1Dxh4rjUYN7B93+SjC3r1PDKA18xcQN87OFGgUnyw7LSgNLSQ==","_location":"/canvas","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"canvas@2.9.0","name":"canvas","escapedName":"canvas","rawSpec":"2.9.0","saveSpec":null,"fetchSpec":"2.9.0"},"_requiredBy":["/"],"_resolved":"https://registry.npmjs.org/canvas/-/canvas-2.9.0.tgz","_spec":"2.9.0","_where":"/home/runner/work/detekt-statistics/detekt-statistics","author":{"name":"TJ Holowaychuk","email":"tj@learnboost.com"},"binary":{"module_name":"canvas","module_path":"build/Release","host":"https://github.com/Automattic/node-canvas/releases/download/","remote_path":"v{version}","package_name":"{module_name}-v{version}-{node_abi}-{platform}-{libc}-{arch}.tar.gz"},"browser":"browser.js","bugs":{"url":"https://github.com/Automattic/node-canvas/issues"},"contributors":[{"name":"Nathan Rajlich","email":"nathan@tootallnate.net"},{"name":"Rod Vagg","email":"r@va.gg"},{"name":"Juriy Zaytsev","email":"kangax@gmail.com"}],"dependencies":{"@mapbox/node-pre-gyp":"^1.0.0","nan":"^2.15.0","simple-get":"^3.0.3"},"description":"Canvas graphics API backed by Cairo","devDependencies":{"@types/node":"^10.12.18","assert-rejects":"^1.0.0","dtslint":"^4.0.7","express":"^4.16.3","mocha":"^5.2.0","pixelmatch":"^4.0.2","standard":"^12.0.1","typescript":"^4.2.2"},"engines":{"node":">=6"},"files":["binding.gyp","lib/","src/","util/","types/index.d.ts"],"homepage":"https://github.com/Automattic/node-canvas","keywords":["canvas","graphic","graphics","pixman","cairo","image","images","pdf"],"license":"MIT","main":"index.js","name":"canvas","repository":{"type":"git","url":"git://github.com/Automattic/node-canvas.git"},"scripts":{"benchmark":"node benchmarks/run.js","dtslint":"dtslint types","install":"node-pre-gyp install --fallback-to-build","lint":"standard examples/*.js test/server.js test/public/*.js benchmarks/run.js lib/context2d.js util/has_lib.js browser.js index.js","prebenchmark":"node-gyp build","pretest-server":"node-gyp build","test":"mocha test/*.test.js","test-server":"node test/server.js"},"types":"types/index.d.ts","version":"2.9.0"}');
+module.exports = JSON.parse('{"_args":[["canvas@2.9.1","/home/runner/work/detekt-statistics/detekt-statistics"]],"_from":"canvas@2.9.1","_id":"canvas@2.9.1","_inBundle":false,"_integrity":"sha512-vSQti1uG/2gjv3x6QLOZw7TctfufaerTWbVe+NSduHxxLGB+qf3kFgQ6n66DSnuoINtVUjrLLIK2R+lxrBG07A==","_location":"/canvas","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"canvas@2.9.1","name":"canvas","escapedName":"canvas","rawSpec":"2.9.1","saveSpec":null,"fetchSpec":"2.9.1"},"_requiredBy":["/"],"_resolved":"https://registry.npmjs.org/canvas/-/canvas-2.9.1.tgz","_spec":"2.9.1","_where":"/home/runner/work/detekt-statistics/detekt-statistics","author":{"name":"TJ Holowaychuk","email":"tj@learnboost.com"},"binary":{"module_name":"canvas","module_path":"build/Release","host":"https://github.com/Automattic/node-canvas/releases/download/","remote_path":"v{version}","package_name":"{module_name}-v{version}-{node_abi}-{platform}-{libc}-{arch}.tar.gz"},"browser":"browser.js","bugs":{"url":"https://github.com/Automattic/node-canvas/issues"},"contributors":[{"name":"Nathan Rajlich","email":"nathan@tootallnate.net"},{"name":"Rod Vagg","email":"r@va.gg"},{"name":"Juriy Zaytsev","email":"kangax@gmail.com"}],"dependencies":{"@mapbox/node-pre-gyp":"^1.0.0","nan":"^2.15.0","simple-get":"^3.0.3"},"description":"Canvas graphics API backed by Cairo","devDependencies":{"@types/node":"^10.12.18","assert-rejects":"^1.0.0","dtslint":"^4.0.7","express":"^4.16.3","mocha":"^5.2.0","pixelmatch":"^4.0.2","standard":"^12.0.1","typescript":"^4.2.2"},"engines":{"node":">=6"},"files":["binding.gyp","lib/","src/","util/","types/index.d.ts"],"homepage":"https://github.com/Automattic/node-canvas","keywords":["canvas","graphic","graphics","pixman","cairo","image","images","pdf"],"license":"MIT","main":"index.js","name":"canvas","repository":{"type":"git","url":"git://github.com/Automattic/node-canvas.git"},"scripts":{"benchmark":"node benchmarks/run.js","dtslint":"dtslint types","install":"node-pre-gyp install --fallback-to-build","lint":"standard examples/*.js test/server.js test/public/*.js benchmarks/run.js lib/context2d.js util/has_lib.js browser.js index.js","prebenchmark":"node-gyp build","pretest-server":"node-gyp build","test":"mocha test/*.test.js","test-server":"node test/server.js"},"types":"types/index.d.ts","version":"2.9.1"}');
 
 /***/ })
 
