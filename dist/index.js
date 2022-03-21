@@ -9,20 +9,18 @@
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.calculate = void 0;
 function calculate(value) {
-    var severity = new Map();
-    var id = new Map();
-    for (var _i = 0, value_1 = value; _i < value_1.length; _i++) {
-        var issues = value_1[_i];
-        for (var _a = 0, _b = issues.issues; _a < _b.length; _a++) {
-            var issue = _b[_a];
-            var severityValue = severity.get(issue.severity);
+    const severity = new Map();
+    const id = new Map();
+    for (const issues of value) {
+        for (const issue of issues.issues) {
+            const severityValue = severity.get(issue.severity);
             if (severityValue != undefined) {
                 severity.set(issue.severity, severityValue + 1);
             }
             else {
                 severity.set(issue.severity, 1);
             }
-            var idValue = id.get(issue.id);
+            const idValue = id.get(issue.id);
             if (idValue != undefined) {
                 id.set(issue.id, idValue + 1);
             }
@@ -66,71 +64,35 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.renderData = exports.renderSeverity = void 0;
 // reference by https://github.com/SeanSobey/ChartjsNodeCanvas
-var fs = __importStar(__nccwpck_require__(7147));
-var chart_js_1 = __nccwpck_require__(7249);
-var canvas_1 = __nccwpck_require__(771);
-var width = 400;
-var height = 400;
-var CanvasRenderService = /** @class */ (function () {
-    function CanvasRenderService(width, height) {
+const fs = __importStar(__nccwpck_require__(7147));
+const chart_js_1 = __nccwpck_require__(7249);
+const canvas_1 = __nccwpck_require__(771);
+const width = 400;
+const height = 400;
+class CanvasRenderService {
+    constructor(width, height) {
         this.width = width;
         this.height = height;
     }
-    CanvasRenderService.prototype.renderChart = function (configuration) {
-        var canvas = (0, canvas_1.createCanvas)(this.width, this.height);
+    renderChart(configuration) {
+        const canvas = (0, canvas_1.createCanvas)(this.width, this.height);
         configuration.options = configuration.options || {};
         configuration.options.responsive = false;
         configuration.options.animation = false;
-        var context = canvas.getContext("2d");
+        const context = canvas.getContext("2d");
         return new chart_js_1.Chart(context, configuration);
-    };
-    CanvasRenderService.prototype.renderToBuffer = function (configuration) {
-        var chart = this.renderChart(configuration);
-        return new Promise(function (resolve, reject) {
+    }
+    renderToBuffer(configuration) {
+        const chart = this.renderChart(configuration);
+        return new Promise((resolve, reject) => {
             if (!chart.canvas) {
                 throw new Error("canvas is null");
             }
-            var canvas = chart.canvas;
-            canvas.toBuffer(function (error, buffer) {
+            const canvas = chart.canvas;
+            canvas.toBuffer((error, buffer) => {
                 chart.destroy();
                 if (error) {
                     return reject(error);
@@ -138,151 +100,127 @@ var CanvasRenderService = /** @class */ (function () {
                 return resolve(buffer);
             }, "image/png");
         });
+    }
+}
+async function renderSeverity(report, fileName) {
+    const fatalCount = report.severity.get("fatal") ?? 0;
+    const errorCount = report.severity.get("error") ?? 0;
+    const warningCount = report.severity.get("warning") ?? 0;
+    const infoCount = report.severity.get("info") ?? 0;
+    const canvasRenderService = new CanvasRenderService(width, height);
+    const configuration = {
+        type: "bar",
+        data: {
+            labels: ["Info", "Warning", "Error", "Fatal"],
+            datasets: [
+                {
+                    data: [infoCount, warningCount, errorCount, fatalCount],
+                    backgroundColor: [
+                        "rgba(0, 255, 255, 0.2)",
+                        "rgba(0, 128, 0, 0.2)",
+                        "rgba(255, 0, 0, 0.2)",
+                        "rgba(128, 0, 0, 0.2)",
+                    ],
+                    borderColor: [
+                        "rgba(0, 255, 255, 1)",
+                        "rgba(0, 128, 0, 1)",
+                        "rgba(255, 0, 0, 1)",
+                        "rgba(128, 0, 0, 1)",
+                    ],
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    font: {
+                        size: 18,
+                    },
+                    text: "Severity",
+                },
+                legend: {
+                    display: false,
+                },
+            },
+        },
     };
-    return CanvasRenderService;
-}());
-function renderSeverity(report, fileName) {
-    var _a, _b, _c, _d;
-    return __awaiter(this, void 0, void 0, function () {
-        var fatalCount, errorCount, warningCount, infoCount, canvasRenderService, configuration, image;
-        return __generator(this, function (_e) {
-            switch (_e.label) {
-                case 0:
-                    fatalCount = (_a = report.severity.get("fatal")) !== null && _a !== void 0 ? _a : 0;
-                    errorCount = (_b = report.severity.get("error")) !== null && _b !== void 0 ? _b : 0;
-                    warningCount = (_c = report.severity.get("warning")) !== null && _c !== void 0 ? _c : 0;
-                    infoCount = (_d = report.severity.get("info")) !== null && _d !== void 0 ? _d : 0;
-                    canvasRenderService = new CanvasRenderService(width, height);
-                    configuration = {
-                        type: "bar",
-                        data: {
-                            labels: ["Info", "Warning", "Error", "Fatal"],
-                            datasets: [
-                                {
-                                    data: [infoCount, warningCount, errorCount, fatalCount],
-                                    backgroundColor: [
-                                        "rgba(0, 255, 255, 0.2)",
-                                        "rgba(0, 128, 0, 0.2)",
-                                        "rgba(255, 0, 0, 0.2)",
-                                        "rgba(128, 0, 0, 0.2)",
-                                    ],
-                                    borderColor: [
-                                        "rgba(0, 255, 255, 1)",
-                                        "rgba(0, 128, 0, 1)",
-                                        "rgba(255, 0, 0, 1)",
-                                        "rgba(128, 0, 0, 1)",
-                                    ],
-                                    borderWidth: 1,
-                                },
-                            ],
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                },
-                            },
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    font: {
-                                        size: 18,
-                                    },
-                                    text: "Severity",
-                                },
-                                legend: {
-                                    display: false,
-                                },
-                            },
-                        },
-                    };
-                    return [4 /*yield*/, canvasRenderService.renderToBuffer(configuration)];
-                case 1:
-                    image = _e.sent();
-                    fs.writeFileSync(fileName, image);
-                    return [2 /*return*/];
-            }
-        });
-    });
+    const image = await canvasRenderService.renderToBuffer(configuration);
+    fs.writeFileSync(fileName, image);
 }
 exports.renderSeverity = renderSeverity;
-function renderData(data, fileName) {
-    return __awaiter(this, void 0, void 0, function () {
-        var take, takeData, labels, canvasRenderService, configuration, image;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    take = 10;
-                    takeData = data.slice(0 <= data.length - take ? data.length - take : 0, data.length);
-                    labels = takeData.map(function (x) { return x.date; });
-                    canvasRenderService = new CanvasRenderService(width, height);
-                    configuration = {
-                        type: "line",
-                        data: {
-                            labels: labels,
-                            datasets: [
-                                {
-                                    label: "All",
-                                    borderColor: "rgba(35, 87, 177, 1)",
-                                    backgroundColor: "rgba(35, 87, 177, 0.2)",
-                                    tension: 0,
-                                    data: takeData.map(function (x) { return x.all; }),
-                                },
-                                {
-                                    label: "Info",
-                                    borderColor: "rgba(0, 255, 255, 1)",
-                                    backgroundColor: "rgba(0, 255, 255, 0.2)",
-                                    tension: 0,
-                                    data: takeData.map(function (x) { return x.info; }),
-                                },
-                                {
-                                    label: "Warning",
-                                    borderColor: "rgba(0, 128, 0, 1)",
-                                    backgroundColor: "rgba(0, 128, 0, 0.2)",
-                                    tension: 0,
-                                    data: takeData.map(function (x) { return x.warning; }),
-                                },
-                                {
-                                    label: "Error",
-                                    borderColor: "rgba(255, 0, 0, 1)",
-                                    backgroundColor: "rgba(255, 0, 0, 0.2)",
-                                    tension: 0,
-                                    data: takeData.map(function (x) { return x.error; }),
-                                },
-                                {
-                                    label: "Fatal",
-                                    borderColor: "rgba(128, 0, 0, 1)",
-                                    backgroundColor: "rgba(128, 0, 0, 0.2)",
-                                    tension: 0,
-                                    data: takeData.map(function (x) { return x.fatal; }),
-                                },
-                            ],
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                },
-                            },
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    font: {
-                                        size: 18,
-                                    },
-                                    text: "Transition",
-                                },
-                            },
-                        },
-                    };
-                    return [4 /*yield*/, canvasRenderService.renderToBuffer(configuration)];
-                case 1:
-                    image = _a.sent();
-                    fs.writeFileSync(fileName, image);
-                    return [2 /*return*/];
-            }
-        });
-    });
+async function renderData(data, fileName) {
+    const take = 10;
+    const takeData = data.slice(0 <= data.length - take ? data.length - take : 0, data.length);
+    const labels = takeData.map((x) => x.date);
+    const canvasRenderService = new CanvasRenderService(width, height);
+    const configuration = {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: "All",
+                    borderColor: "rgba(35, 87, 177, 1)",
+                    backgroundColor: "rgba(35, 87, 177, 0.2)",
+                    tension: 0,
+                    data: takeData.map((x) => x.all),
+                },
+                {
+                    label: "Info",
+                    borderColor: "rgba(0, 255, 255, 1)",
+                    backgroundColor: "rgba(0, 255, 255, 0.2)",
+                    tension: 0,
+                    data: takeData.map((x) => x.info),
+                },
+                {
+                    label: "Warning",
+                    borderColor: "rgba(0, 128, 0, 1)",
+                    backgroundColor: "rgba(0, 128, 0, 0.2)",
+                    tension: 0,
+                    data: takeData.map((x) => x.warning),
+                },
+                {
+                    label: "Error",
+                    borderColor: "rgba(255, 0, 0, 1)",
+                    backgroundColor: "rgba(255, 0, 0, 0.2)",
+                    tension: 0,
+                    data: takeData.map((x) => x.error),
+                },
+                {
+                    label: "Fatal",
+                    borderColor: "rgba(128, 0, 0, 1)",
+                    backgroundColor: "rgba(128, 0, 0, 0.2)",
+                    tension: 0,
+                    data: takeData.map((x) => x.fatal),
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    font: {
+                        size: 18,
+                    },
+                    text: "Transition",
+                },
+            },
+        },
+    };
+    const image = await canvasRenderService.renderToBuffer(configuration);
+    fs.writeFileSync(fileName, image);
 }
 exports.renderData = renderData;
 
@@ -319,7 +257,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.readConfig = void 0;
-var core = __importStar(__nccwpck_require__(2186));
+const core = __importStar(__nccwpck_require__(2186));
 function readConfig() {
     return {
         repository: getInput("repository"),
@@ -338,7 +276,7 @@ function readConfig() {
 }
 exports.readConfig = readConfig;
 function getInputOrNull(key) {
-    var result = core.getInput(key, { required: false });
+    const result = core.getInput(key, { required: false });
     if (result.length == 0) {
         return null;
     }
@@ -381,13 +319,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.appendData = exports.writeData = exports.readData = void 0;
-var fs = __importStar(__nccwpck_require__(7147));
+const fs = __importStar(__nccwpck_require__(7147));
 function readData(config) {
     if (config.dataJsonFilePath == null) {
         return [];
     }
     if (fs.existsSync(config.dataJsonFilePath)) {
-        var dataRoot = JSON.parse(fs.readFileSync(config.dataJsonFilePath).toString());
+        const dataRoot = JSON.parse(fs.readFileSync(config.dataJsonFilePath).toString());
         return dataRoot.data;
     }
     else {
@@ -399,19 +337,18 @@ function writeData(config, data) {
     if (config.dataJsonFilePath == null) {
         return;
     }
-    var dataRoot = { data: data };
+    const dataRoot = { data: data };
     fs.writeFileSync(config.dataJsonFilePath, JSON.stringify(dataRoot, undefined, 4));
 }
 exports.writeData = writeData;
 function appendData(data, report) {
-    var _a, _b, _c, _d;
-    var date = new Date();
-    var dateString = "".concat(date.getFullYear(), "/").concat(date.getMonth() + 1, "/").concat(date.getDate());
-    var info = (_a = report.severity.get("info")) !== null && _a !== void 0 ? _a : 0;
-    var warning = (_b = report.severity.get("warning")) !== null && _b !== void 0 ? _b : 0;
-    var error = (_c = report.severity.get("error")) !== null && _c !== void 0 ? _c : 0;
-    var fatal = (_d = report.severity.get("fatal")) !== null && _d !== void 0 ? _d : 0;
-    var all = info + warning + error + fatal;
+    const date = new Date();
+    const dateString = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    const info = report.severity.get("info") ?? 0;
+    const warning = report.severity.get("warning") ?? 0;
+    const error = report.severity.get("error") ?? 0;
+    const fatal = report.severity.get("fatal") ?? 0;
+    const all = info + warning + error + fatal;
     data.push({ date: dateString, all: all, info: info, warning: warning, error: error, fatal: fatal });
 }
 exports.appendData = appendData;
@@ -447,188 +384,78 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.pushDataBranch = exports.commit = exports.checkoutBranch = exports.checkoutDataBranch = exports.echoCurrentBranch = void 0;
-var exec = __importStar(__nccwpck_require__(1514));
-function echoCurrentBranch() {
-    return __awaiter(this, void 0, void 0, function () {
-        var execOption, stdout;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    execOption = { ignoreReturnCode: true };
-                    stdout = "";
-                    execOption.listeners = {
-                        stdout: function (data) {
-                            stdout += data.toString();
-                        },
-                    };
-                    return [4 /*yield*/, exec.exec("git symbolic-ref --short HEAD", undefined, execOption)];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/, stdout];
-            }
-        });
-    });
+const exec = __importStar(__nccwpck_require__(1514));
+async function echoCurrentBranch() {
+    const execOption = { ignoreReturnCode: true };
+    let stdout = "";
+    execOption.listeners = {
+        stdout: (data) => {
+            stdout += data.toString();
+        },
+    };
+    await exec.exec("git symbolic-ref --short HEAD", undefined, execOption);
+    return stdout;
 }
 exports.echoCurrentBranch = echoCurrentBranch;
 /**
  * return is initial branch
  */
-function checkoutDataBranch(config) {
-    return __awaiter(this, void 0, void 0, function () {
-        var hasBranch;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (config.dataBranch == null) {
-                        return [2 /*return*/, false];
-                    }
-                    return [4 /*yield*/, hasDataBranch(config)];
-                case 1:
-                    hasBranch = _a.sent();
-                    if (!hasBranch) return [3 /*break*/, 5];
-                    return [4 /*yield*/, exec.exec("git checkout ".concat(config.dataBranch))];
-                case 2:
-                    _a.sent();
-                    return [4 /*yield*/, exec.exec("git config pull.ff only")];
-                case 3:
-                    _a.sent();
-                    return [4 /*yield*/, exec.exec("git pull origin ".concat(config.dataBranch))];
-                case 4:
-                    _a.sent();
-                    return [2 /*return*/, false];
-                case 5: return [4 /*yield*/, exec.exec("git checkout --orphan ".concat(config.dataBranch))];
-                case 6:
-                    _a.sent();
-                    return [2 /*return*/, true];
-            }
-        });
-    });
+async function checkoutDataBranch(config) {
+    if (config.dataBranch == null) {
+        return false;
+    }
+    const hasBranch = await hasDataBranch(config);
+    if (hasBranch) {
+        await exec.exec(`git checkout ${config.dataBranch}`);
+        await exec.exec("git config pull.ff only");
+        await exec.exec(`git pull origin ${config.dataBranch}`);
+        return false;
+    }
+    else {
+        await exec.exec(`git checkout --orphan ${config.dataBranch}`);
+        return true;
+    }
 }
 exports.checkoutDataBranch = checkoutDataBranch;
-function checkoutBranch(branch) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, exec.exec("git checkout ".concat(branch))];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    });
+async function checkoutBranch(branch) {
+    await exec.exec(`git checkout ${branch}`);
 }
 exports.checkoutBranch = checkoutBranch;
-function commit(config, isInitialBranch) {
-    return __awaiter(this, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, exec.exec("git config --local user.name ".concat(config.dataCommitUser))];
-                case 1:
-                    _a.sent();
-                    return [4 /*yield*/, exec.exec("git config --local user.email ".concat(config.dataCommitEmail))];
-                case 2:
-                    _a.sent();
-                    if (!isInitialBranch) return [3 /*break*/, 4];
-                    return [4 /*yield*/, exec.exec("git rm -rf .")];
-                case 3:
-                    _a.sent();
-                    _a.label = 4;
-                case 4: return [4 /*yield*/, exec.exec("git add ".concat(config.dataJsonFilePath))];
-                case 5:
-                    _a.sent();
-                    return [4 /*yield*/, exec.exec("git commit --no-edit -m update")];
-                case 6:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    });
+async function commit(config, isInitialBranch) {
+    await exec.exec(`git config --local user.name ${config.dataCommitUser}`);
+    await exec.exec(`git config --local user.email ${config.dataCommitEmail}`);
+    if (isInitialBranch) {
+        await exec.exec("git rm -rf .");
+    }
+    await exec.exec(`git add ${config.dataJsonFilePath}`);
+    await exec.exec("git commit --no-edit -m update");
 }
 exports.commit = commit;
-function pushDataBranch(config) {
-    return __awaiter(this, void 0, void 0, function () {
-        var remote;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    remote = "https://x-access-token:".concat(config.githubToken, "@github.com/").concat(config.repository, ".git");
-                    return [4 /*yield*/, exec.exec("git push ".concat(remote, " HEAD:").concat(config.dataBranch, " -f"))];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    });
+async function pushDataBranch(config) {
+    const remote = `https://x-access-token:${config.githubToken}@github.com/${config.repository}.git`;
+    await exec.exec(`git push ${remote} HEAD:${config.dataBranch} -f`);
 }
 exports.pushDataBranch = pushDataBranch;
-function hasDataBranch(config) {
-    return __awaiter(this, void 0, void 0, function () {
-        var execOption, stdout;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (config.dataBranch == null) {
-                        return [2 /*return*/, false];
-                    }
-                    execOption = { ignoreReturnCode: true };
-                    stdout = "";
-                    execOption.listeners = {
-                        stdout: function (data) {
-                            stdout += data.toString();
-                        },
-                    };
-                    return [4 /*yield*/, exec.exec("git fetch --all")];
-                case 1:
-                    _a.sent();
-                    return [4 /*yield*/, exec.exec("git branch -a", undefined, execOption)];
-                case 2:
-                    _a.sent();
-                    return [2 /*return*/, (0 <=
-                            stdout
-                                .split(" ")
-                                .map(function (x) { return x.trim(); })
-                                .indexOf("remotes/origin/".concat(config.dataBranch)))];
-            }
-        });
-    });
+async function hasDataBranch(config) {
+    if (config.dataBranch == null) {
+        return false;
+    }
+    const execOption = { ignoreReturnCode: true };
+    let stdout = "";
+    execOption.listeners = {
+        stdout: (data) => {
+            stdout += data.toString();
+        },
+    };
+    await exec.exec("git fetch --all");
+    await exec.exec("git branch -a", undefined, execOption);
+    return (0 <=
+        stdout
+            .split(" ")
+            .map((x) => x.trim())
+            .indexOf(`remotes/origin/${config.dataBranch}`));
 }
 
 
@@ -662,167 +489,71 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var __asyncValues = (this && this.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var core = __importStar(__nccwpck_require__(2186));
-var glob = __importStar(__nccwpck_require__(8090));
-var fs = __importStar(__nccwpck_require__(7147));
-var git = __importStar(__nccwpck_require__(3374));
-var config_1 = __nccwpck_require__(88);
-var parse_1 = __nccwpck_require__(5223);
-var calculate_1 = __nccwpck_require__(4796);
-var data_1 = __nccwpck_require__(7383);
-var report_1 = __nccwpck_require__(8269);
-var chart_1 = __nccwpck_require__(5087);
-function run() {
-    var e_1, _a;
-    return __awaiter(this, void 0, void 0, function () {
-        var config, mainBranch, isInitialBranch, issuesList, globber, _b, _c, file, issues, e_1_1, error_1, report, data, error_2, error_3;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
-                case 0:
-                    issuesList = [];
-                    _d.label = 1;
-                case 1:
-                    _d.trys.push([1, 18, , 19]);
-                    config = (0, config_1.readConfig)();
-                    return [4 /*yield*/, git.echoCurrentBranch()];
-                case 2:
-                    mainBranch = _d.sent();
-                    return [4 /*yield*/, glob.create(config.detektXmlFilePath, {
-                            followSymbolicLinks: config.detektXmlFilePathFollowSymbolicLinks,
-                        })];
-                case 3:
-                    globber = _d.sent();
-                    _d.label = 4;
-                case 4:
-                    _d.trys.push([4, 10, 11, 16]);
-                    _b = __asyncValues(globber.globGenerator());
-                    _d.label = 5;
-                case 5: return [4 /*yield*/, _b.next()];
-                case 6:
-                    if (!(_c = _d.sent(), !_c.done)) return [3 /*break*/, 9];
-                    file = _c.value;
-                    return [4 /*yield*/, (0, parse_1.parse)(fs.readFileSync(file).toString())];
-                case 7:
-                    issues = _d.sent();
-                    issuesList.push(issues);
-                    _d.label = 8;
-                case 8: return [3 /*break*/, 5];
-                case 9: return [3 /*break*/, 16];
-                case 10:
-                    e_1_1 = _d.sent();
-                    e_1 = { error: e_1_1 };
-                    return [3 /*break*/, 16];
-                case 11:
-                    _d.trys.push([11, , 14, 15]);
-                    if (!(_c && !_c.done && (_a = _b.return))) return [3 /*break*/, 13];
-                    return [4 /*yield*/, _a.call(_b)];
-                case 12:
-                    _d.sent();
-                    _d.label = 13;
-                case 13: return [3 /*break*/, 15];
-                case 14:
-                    if (e_1) throw e_1.error;
-                    return [7 /*endfinally*/];
-                case 15: return [7 /*endfinally*/];
-                case 16: return [4 /*yield*/, git.checkoutDataBranch(config)];
-                case 17:
-                    isInitialBranch = _d.sent();
-                    return [3 /*break*/, 19];
-                case 18:
-                    error_1 = _d.sent();
-                    if (error_1 instanceof Error) {
-                        core.setFailed(error_1.message);
-                    }
-                    return [2 /*return*/];
-                case 19:
-                    _d.trys.push([19, 22, 23, 25]);
-                    report = (0, calculate_1.calculate)(issuesList);
-                    data = (0, data_1.readData)(config);
-                    (0, data_1.appendData)(data, report);
-                    (0, data_1.writeData)(config, data);
-                    return [4 /*yield*/, git.commit(config, isInitialBranch)];
-                case 20:
-                    _d.sent();
-                    return [4 /*yield*/, git.pushDataBranch(config)];
-                case 21:
-                    _d.sent();
-                    return [3 /*break*/, 25];
-                case 22:
-                    error_2 = _d.sent();
-                    if (error_2 instanceof Error) {
-                        core.setFailed(error_2.message);
-                    }
-                    return [2 /*return*/];
-                case 23: return [4 /*yield*/, git.checkoutBranch(mainBranch)];
-                case 24:
-                    _d.sent();
-                    return [7 /*endfinally*/];
-                case 25:
-                    _d.trys.push([25, 29, , 30]);
-                    (0, report_1.writeReport)(config, report);
-                    return [4 /*yield*/, (0, chart_1.renderSeverity)(report, config.severityChartFilePath)];
-                case 26:
-                    _d.sent();
-                    if (!(config.dataChartFilePath != null)) return [3 /*break*/, 28];
-                    return [4 /*yield*/, (0, chart_1.renderData)(data, config.dataChartFilePath)];
-                case 27:
-                    _d.sent();
-                    _d.label = 28;
-                case 28: return [3 /*break*/, 30];
-                case 29:
-                    error_3 = _d.sent();
-                    if (error_3 instanceof Error) {
-                        core.setFailed(error_3.message);
-                    }
-                    return [3 /*break*/, 30];
-                case 30: return [2 /*return*/];
-            }
+const core = __importStar(__nccwpck_require__(2186));
+const glob = __importStar(__nccwpck_require__(8090));
+const fs = __importStar(__nccwpck_require__(7147));
+const git = __importStar(__nccwpck_require__(3374));
+const config_1 = __nccwpck_require__(88);
+const parse_1 = __nccwpck_require__(5223);
+const calculate_1 = __nccwpck_require__(4796);
+const data_1 = __nccwpck_require__(7383);
+const report_1 = __nccwpck_require__(8269);
+const chart_1 = __nccwpck_require__(5087);
+async function run() {
+    let config;
+    let mainBranch;
+    let isInitialBranch;
+    const issuesList = [];
+    try {
+        config = (0, config_1.readConfig)();
+        mainBranch = await git.echoCurrentBranch();
+        const globber = await glob.create(config.detektXmlFilePath, {
+            followSymbolicLinks: config.detektXmlFilePathFollowSymbolicLinks,
         });
-    });
+        for await (const file of globber.globGenerator()) {
+            const issues = await (0, parse_1.parse)(fs.readFileSync(file).toString());
+            issuesList.push(issues);
+        }
+        isInitialBranch = await git.checkoutDataBranch(config);
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            core.setFailed(error.message);
+        }
+        return;
+    }
+    let report;
+    let data;
+    try {
+        report = (0, calculate_1.calculate)(issuesList);
+        data = (0, data_1.readData)(config);
+        (0, data_1.appendData)(data, report);
+        (0, data_1.writeData)(config, data);
+        await git.commit(config, isInitialBranch);
+        await git.pushDataBranch(config);
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            core.setFailed(error.message);
+        }
+        return;
+    }
+    finally {
+        await git.checkoutBranch(mainBranch);
+    }
+    try {
+        (0, report_1.writeReport)(config, report);
+        await (0, chart_1.renderSeverity)(report, config.severityChartFilePath);
+        if (config.dataChartFilePath != null) {
+            await (0, chart_1.renderData)(data, config.dataChartFilePath);
+        }
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            core.setFailed(error.message);
+        }
+    }
 }
 run();
 
@@ -857,78 +588,31 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.parse = void 0;
-var xml = __importStar(__nccwpck_require__(6189));
-function parse(value) {
-    return __awaiter(this, void 0, void 0, function () {
-        var root, issues, _i, _a, file, _b, _c, element, id;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
-                case 0: return [4 /*yield*/, xml.parseStringPromise(value)];
-                case 1:
-                    root = (_d.sent());
-                    if (root.checkstyle.file == undefined) {
-                        return [2 /*return*/, { issues: [] }];
-                    }
-                    issues = [];
-                    for (_i = 0, _a = root.checkstyle.file; _i < _a.length; _i++) {
-                        file = _a[_i];
-                        if (file.error == undefined) {
-                            continue;
-                        }
-                        for (_b = 0, _c = file.error; _b < _c.length; _b++) {
-                            element = _c[_b];
-                            id = element.$.source;
-                            if (id.startsWith("detekt.")) {
-                                id = id.slice(7, id.length);
-                            }
-                            issues.push({
-                                severity: element.$.severity,
-                                id: id,
-                            });
-                        }
-                    }
-                    return [2 /*return*/, { issues: issues }];
+const xml = __importStar(__nccwpck_require__(6189));
+async function parse(value) {
+    const root = (await xml.parseStringPromise(value));
+    if (root.checkstyle.file == undefined) {
+        return { issues: [] };
+    }
+    const issues = [];
+    for (const file of root.checkstyle.file) {
+        if (file.error == undefined) {
+            continue;
+        }
+        for (const element of file.error) {
+            let id = element.$.source;
+            if (id.startsWith("detekt.")) {
+                id = id.slice(7, id.length);
             }
-        });
-    });
+            issues.push({
+                severity: element.$.severity,
+                id: id,
+            });
+        }
+    }
+    return { issues: issues };
 }
 exports.parse = parse;
 
@@ -965,31 +649,29 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.writeReport = void 0;
-var fs = __importStar(__nccwpck_require__(7147));
+const fs = __importStar(__nccwpck_require__(7147));
 function writeReport(config, report) {
-    var json = {
+    const json = {
         severity: Array.from(report.severity.entries()),
         id: Array.from(report.id.entries()),
     };
     fs.writeFileSync(config.reportJsonFilePath, JSON.stringify(json, undefined, 4));
-    var severity = toStringFromStringMap(report.severity);
-    var id = toStringFromStringMap(report.id);
-    var text = "";
+    const severity = toStringFromStringMap(report.severity);
+    const id = toStringFromStringMap(report.id);
+    let text = "";
     text += "--severity--\n";
-    text += "".concat(severity, "\n");
+    text += `${severity}\n`;
     text += "--id--\n";
-    text += "".concat(id, "\n");
+    text += `${id}\n`;
     fs.writeFileSync(config.reportTextFilePath, text);
 }
 exports.writeReport = writeReport;
 function toStringFromStringMap(map) {
-    var _a;
-    var keys = Array.from(map.keys()).sort();
-    var result = "";
-    for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
-        var key = keys_1[_i];
-        var value = (_a = map.get(key)) !== null && _a !== void 0 ? _a : 0;
-        result += "".concat(key, ": ").concat(value, "\n");
+    const keys = Array.from(map.keys()).sort();
+    let result = "";
+    for (const key of keys) {
+        const value = map.get(key) ?? 0;
+        result += `${key}: ${value}\n`;
     }
     return result;
 }
