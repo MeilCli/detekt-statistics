@@ -1,5 +1,5 @@
 # detekt-statistics
-![CI](https://github.com/MeilCli/detekt-statistics/workflows/CI/badge.svg)  
+[![CI-Master](https://github.com/MeilCli/detekt-statistics/actions/workflows/ci-master.yml/badge.svg)](https://github.com/MeilCli/detekt-statistics/actions/workflows/ci-master.yml)  
 Generate [detekt](https://github.com/detekt/detekt) statistics action
 
 This action generate some chart image and report file:
