@@ -155,11 +155,14 @@ jobs:
       # - severity.png
 ```
 
-## Contributing
+## Contributes
+[<img src="https://gist.github.com/MeilCli/f655528beb4b166019eb1115d2850e3c/raw/01276dfbee74956fc8e0f9ce9a1834fd0a1b1e88/metrics_contributors.svg">](https://github.com/MeilCli/detekt-statistics/graphs/contributors)
+
+### Could you want to contribute?
 see [Contributing.md](./.github/CONTRIBUTING.md)
 
 ## License
-MIT License
+[<img src="https://gist.github.com/MeilCli/f655528beb4b166019eb1115d2850e3c/raw/01276dfbee74956fc8e0f9ce9a1834fd0a1b1e88/metrics_licenses.svg">](LICENSE.txt)
 
 ### Using
 - [actions/toolkit](https://github.com/actions/toolkit), published by [MIT License](https://github.com/actions/toolkit/blob/master/LICENSE.md)
