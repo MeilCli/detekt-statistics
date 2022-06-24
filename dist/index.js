@@ -5148,7 +5148,7 @@ function expand(str, isTop) {
 /***/ }),
 
 /***/ 771:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 const Canvas = __nccwpck_require__(4786)
 const Image = __nccwpck_require__(1767)
@@ -5207,43 +5207,41 @@ function deregisterAllFonts () {
   return Canvas._deregisterAllFonts()
 }
 
-module.exports = {
-  Canvas,
-  Context2d: CanvasRenderingContext2D, // Legacy/compat export
-  CanvasRenderingContext2D,
-  CanvasGradient: bindings.CanvasGradient,
-  CanvasPattern,
-  Image,
-  ImageData: bindings.ImageData,
-  PNGStream,
-  PDFStream,
-  JPEGStream,
-  DOMMatrix,
-  DOMPoint,
+exports.Canvas = Canvas
+exports.Context2d = CanvasRenderingContext2D // Legacy/compat export
+exports.CanvasRenderingContext2D = CanvasRenderingContext2D
+exports.CanvasGradient = bindings.CanvasGradient
+exports.CanvasPattern = CanvasPattern
+exports.Image = Image
+exports.ImageData = bindings.ImageData
+exports.PNGStream = PNGStream
+exports.PDFStream = PDFStream
+exports.JPEGStream = JPEGStream
+exports.DOMMatrix = DOMMatrix
+exports.DOMPoint = DOMPoint
 
-  registerFont,
-  deregisterAllFonts,
-  parseFont,
+exports.registerFont = registerFont
+exports.deregisterAllFonts = deregisterAllFonts
+exports.parseFont = parseFont
 
-  createCanvas,
-  createImageData,
-  loadImage,
+exports.createCanvas = createCanvas
+exports.createImageData = createImageData
+exports.loadImage = loadImage
 
-  backends: bindings.Backends,
+exports.backends = bindings.Backends
 
-  /** Library version. */
-  version: packageJson.version,
-  /** Cairo version. */
-  cairoVersion: bindings.cairoVersion,
-  /** jpeglib version. */
-  jpegVersion: bindings.jpegVersion,
-  /** gif_lib version. */
-  gifVersion: bindings.gifVersion ? bindings.gifVersion.replace(/[^.\d]/g, '') : undefined,
-  /** freetype version. */
-  freetypeVersion: bindings.freetypeVersion,
-  /** rsvg version. */
-  rsvgVersion: bindings.rsvgVersion
-}
+/** Library version. */
+exports.version = packageJson.version
+/** Cairo version. */
+exports.cairoVersion = bindings.cairoVersion
+/** jpeglib version. */
+exports.jpegVersion = bindings.jpegVersion
+/** gif_lib version. */
+exports.gifVersion = bindings.gifVersion ? bindings.gifVersion.replace(/[^.\d]/g, '') : undefined
+/** freetype version. */
+exports.freetypeVersion = bindings.freetypeVersion
+/** rsvg version. */
+exports.rsvgVersion = bindings.rsvgVersion
 
 
 /***/ }),
@@ -28110,7 +28108,7 @@ module.exports = require("zlib");
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["canvas@2.9.1","/home/runner/work/detekt-statistics/detekt-statistics"]],"_from":"canvas@2.9.1","_id":"canvas@2.9.1","_inBundle":false,"_integrity":"sha512-vSQti1uG/2gjv3x6QLOZw7TctfufaerTWbVe+NSduHxxLGB+qf3kFgQ6n66DSnuoINtVUjrLLIK2R+lxrBG07A==","_location":"/canvas","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"canvas@2.9.1","name":"canvas","escapedName":"canvas","rawSpec":"2.9.1","saveSpec":null,"fetchSpec":"2.9.1"},"_requiredBy":["/"],"_resolved":"https://registry.npmjs.org/canvas/-/canvas-2.9.1.tgz","_spec":"2.9.1","_where":"/home/runner/work/detekt-statistics/detekt-statistics","author":{"name":"TJ Holowaychuk","email":"tj@learnboost.com"},"binary":{"module_name":"canvas","module_path":"build/Release","host":"https://github.com/Automattic/node-canvas/releases/download/","remote_path":"v{version}","package_name":"{module_name}-v{version}-{node_abi}-{platform}-{libc}-{arch}.tar.gz"},"browser":"browser.js","bugs":{"url":"https://github.com/Automattic/node-canvas/issues"},"contributors":[{"name":"Nathan Rajlich","email":"nathan@tootallnate.net"},{"name":"Rod Vagg","email":"r@va.gg"},{"name":"Juriy Zaytsev","email":"kangax@gmail.com"}],"dependencies":{"@mapbox/node-pre-gyp":"^1.0.0","nan":"^2.15.0","simple-get":"^3.0.3"},"description":"Canvas graphics API backed by Cairo","devDependencies":{"@types/node":"^10.12.18","assert-rejects":"^1.0.0","dtslint":"^4.0.7","express":"^4.16.3","mocha":"^5.2.0","pixelmatch":"^4.0.2","standard":"^12.0.1","typescript":"^4.2.2"},"engines":{"node":">=6"},"files":["binding.gyp","lib/","src/","util/","types/index.d.ts"],"homepage":"https://github.com/Automattic/node-canvas","keywords":["canvas","graphic","graphics","pixman","cairo","image","images","pdf"],"license":"MIT","main":"index.js","name":"canvas","repository":{"type":"git","url":"git://github.com/Automattic/node-canvas.git"},"scripts":{"benchmark":"node benchmarks/run.js","dtslint":"dtslint types","install":"node-pre-gyp install --fallback-to-build","lint":"standard examples/*.js test/server.js test/public/*.js benchmarks/run.js lib/context2d.js util/has_lib.js browser.js index.js","prebenchmark":"node-gyp build","pretest-server":"node-gyp build","test":"mocha test/*.test.js","test-server":"node test/server.js"},"types":"types/index.d.ts","version":"2.9.1"}');
+module.exports = JSON.parse('{"name":"canvas","description":"Canvas graphics API backed by Cairo","version":"2.9.2","author":"TJ Holowaychuk <tj@learnboost.com>","main":"index.js","browser":"browser.js","contributors":["Nathan Rajlich <nathan@tootallnate.net>","Rod Vagg <r@va.gg>","Juriy Zaytsev <kangax@gmail.com>"],"keywords":["canvas","graphic","graphics","pixman","cairo","image","images","pdf"],"homepage":"https://github.com/Automattic/node-canvas","repository":"git://github.com/Automattic/node-canvas.git","scripts":{"prebenchmark":"node-gyp build","benchmark":"node benchmarks/run.js","lint":"standard examples/*.js test/server.js test/public/*.js benchmarks/run.js lib/context2d.js util/has_lib.js browser.js index.js","test":"mocha test/*.test.js","pretest-server":"node-gyp build","test-server":"node test/server.js","install":"node-pre-gyp install --fallback-to-build --update-binary","dtslint":"dtslint types"},"binary":{"module_name":"canvas","module_path":"build/Release","host":"https://github.com/Automattic/node-canvas/releases/download/","remote_path":"v{version}","package_name":"{module_name}-v{version}-{node_abi}-{platform}-{libc}-{arch}.tar.gz"},"files":["binding.gyp","lib/","src/","util/","types/index.d.ts"],"types":"types/index.d.ts","dependencies":{"@mapbox/node-pre-gyp":"^1.0.0","nan":"^2.15.0","simple-get":"^3.0.3"},"devDependencies":{"@types/node":"^10.12.18","assert-rejects":"^1.0.0","dtslint":"^4.0.7","express":"^4.16.3","mocha":"^5.2.0","pixelmatch":"^4.0.2","standard":"^12.0.1","typescript":"^4.2.2"},"engines":{"node":">=6"},"license":"MIT"}');
 
 /***/ })
 
