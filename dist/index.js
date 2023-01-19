@@ -15993,7 +15993,7 @@ return index;
 
 "use strict";
 /*!
- * Chart.js v4.1.2
+ * Chart.js v4.2.0
  * https://www.chartjs.org
  * (c) 2023 Chart.js Contributors
  * Released under the MIT License
@@ -21459,7 +21459,7 @@ function needContext(proxy, names) {
     return false;
 }
 
-var version = "4.1.2";
+var version = "4.2.0";
 
 const KNOWN_POSITIONS = [
     'top',
@@ -23273,6 +23273,9 @@ function containsColorsDefinitions(descriptors) {
     }
     return false;
 }
+function containsColorsDefinition(descriptor) {
+    return descriptor && (descriptor.borderColor || descriptor.backgroundColor);
+}
 var plugin_colors = {
     id: 'colors',
     defaults: {
@@ -23283,8 +23286,9 @@ var plugin_colors = {
         if (!options.enabled) {
             return;
         }
-        const { options: { elements  } , data: { datasets  }  } = chart.config;
-        if (!options.forceOverride && (containsColorsDefinitions(datasets) || elements && containsColorsDefinitions(elements))) {
+        const { data: { datasets  } , options: chartOptions  } = chart.config;
+        const { elements  } = chartOptions;
+        if (!options.forceOverride && (containsColorsDefinitions(datasets) || containsColorsDefinition(chartOptions) || elements && containsColorsDefinitions(elements))) {
             return;
         }
         const colorizer = getColorizer(chart);
@@ -27098,6 +27102,13 @@ class TimeScale extends Scale {
         }
         return adapter.format(value, timeOpts.displayFormats.datetime);
     }
+ format(value, format) {
+        const options = this.options;
+        const formats = options.time.displayFormats;
+        const unit = this._unit;
+        const fmt = format || formats[unit];
+        return this._adapter.format(value, fmt);
+    }
  _tickFormatFunction(time, index, ticks, format) {
         const options = this.options;
         const formatter = options.ticks.callback;
@@ -27363,7 +27374,7 @@ exports.scales = scales;
 
 "use strict";
 /*!
- * Chart.js v4.1.2
+ * Chart.js v4.2.0
  * https://www.chartjs.org
  * (c) 2023 Chart.js Contributors
  * Released under the MIT License
