@@ -19,7 +19,7 @@
         "@actions/glob": "^0.4.0",
         "canvas": "^2.10.2",
         "chart.js": "^4.3.0",
-        "xml2js": "^0.5.0"
+        "xml2js": "^0.6.0"
     },
     "devDependencies": {
         "@types/chart.js": "^2.9.37",
