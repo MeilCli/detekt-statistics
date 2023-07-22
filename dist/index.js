@@ -81,6 +81,7 @@ class CanvasRenderService {
         const canvas = (0, canvas_1.createCanvas)(this.width, this.height);
         configuration.options = configuration.options || {};
         configuration.options.responsive = false;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         configuration.options.animation = false;
         const context = canvas.getContext("2d");
         return new chart_js_1.Chart(context, configuration);
