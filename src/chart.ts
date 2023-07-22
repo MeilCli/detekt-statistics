@@ -9,16 +9,21 @@ const width = 400;
 const height = 400;
 
 type Canvas = HTMLCanvasElement & {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     toBuffer(callback: (err: Error | null, result: Buffer) => void, mimeType?: string, config?: any): void;
 };
 
 class CanvasRenderService {
-    constructor(private readonly width: number, private readonly height: number) {}
+    constructor(
+        private readonly width: number,
+        private readonly height: number,
+    ) {}
 
     private renderChart(configuration: ChartConfiguration): Chart {
         const canvas = createCanvas(this.width, this.height);
         configuration.options = configuration.options || {};
         configuration.options.responsive = false;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         configuration.options.animation = false as any;
         const context = canvas.getContext("2d");
         return new Chart(context, configuration);
