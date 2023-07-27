@@ -10511,7 +10511,7 @@ function wrappy (fn, cb) {
     var descriptor;
     descriptor = Object.create(null);
     descriptor.value = value;
-    descriptor.writeable = true;
+    descriptor.writable = true;
     descriptor.enumerable = true;
     descriptor.configurable = true;
     return Object.defineProperty(obj, key, descriptor);
