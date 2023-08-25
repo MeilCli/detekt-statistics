@@ -16012,7 +16012,7 @@ return index;
 
 "use strict";
 /*!
- * Chart.js v4.3.3
+ * Chart.js v4.4.0
  * https://www.chartjs.org
  * (c) 2023 Chart.js Contributors
  * Released under the MIT License
@@ -21514,7 +21514,7 @@ function needContext(proxy, names) {
     return false;
 }
 
-var version = "4.3.3";
+var version = "4.4.0";
 
 const KNOWN_POSITIONS = [
     'top',
@@ -21584,16 +21584,20 @@ function moveNumericKeys(obj, start, move) {
     }
     return e;
 }
-function getDatasetArea(meta) {
+function getSizeForArea(scale, chartArea, field) {
+    return scale.options.clip ? scale[field] : chartArea[field];
+}
+function getDatasetArea(meta, chartArea) {
     const { xScale , yScale  } = meta;
     if (xScale && yScale) {
         return {
-            left: xScale.left,
-            right: xScale.right,
-            top: yScale.top,
-            bottom: yScale.bottom
+            left: getSizeForArea(xScale, chartArea, 'left'),
+            right: getSizeForArea(xScale, chartArea, 'right'),
+            top: getSizeForArea(yScale, chartArea, 'top'),
+            bottom: getSizeForArea(yScale, chartArea, 'bottom')
         };
     }
+    return chartArea;
 }
 class Chart {
     static defaults = helpers_segment.defaults;
@@ -22095,7 +22099,7 @@ class Chart {
         const ctx = this.ctx;
         const clip = meta._clip;
         const useClip = !clip.disabled;
-        const area = getDatasetArea(meta) || this.chartArea;
+        const area = getDatasetArea(meta, this.chartArea);
         const args = {
             meta,
             index: meta.index,
@@ -27512,7 +27516,7 @@ exports.scales = scales;
 
 "use strict";
 /*!
- * Chart.js v4.3.3
+ * Chart.js v4.4.0
  * https://www.chartjs.org
  * (c) 2023 Chart.js Contributors
  * Released under the MIT License
@@ -28433,6 +28437,7 @@ function applyScaleDefaults(defaults) {
         reverse: false,
         beginAtZero: false,
  bounds: 'ticks',
+        clip: true,
  grace: 0,
         grid: {
             display: true,
@@ -28971,7 +28976,7 @@ function drawBackdrop(ctx, opts) {
  */ function addRoundedRectPath(ctx, rect) {
     const { x , y , w , h , radius  } = rect;
     // top left arc
-    ctx.arc(x + radius.topLeft, y + radius.topLeft, radius.topLeft, -HALF_PI, PI, true);
+    ctx.arc(x + radius.topLeft, y + radius.topLeft, radius.topLeft, 1.5 * PI, PI, true);
     // line from top left to bottom left
     ctx.lineTo(x, y + h - radius.bottomLeft);
     // bottom left arc
