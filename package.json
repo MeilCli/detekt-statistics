@@ -22,7 +22,7 @@
         "xml2js": "^0.6.2"
     },
     "devDependencies": {
-        "@types/chart.js": "^2.9.40",
+        "@types/chart.js": "^2.9.41",
         "@types/jest": "^29.5.9",
         "@types/node": "^20.9.2",
         "@types/xml2js": "^0.4.14",
