@@ -16012,7 +16012,7 @@ return index;
 
 "use strict";
 /*!
- * Chart.js v4.4.0
+ * Chart.js v4.4.1
  * https://www.chartjs.org
  * (c) 2023 Chart.js Contributors
  * Released under the MIT License
@@ -20529,6 +20529,13 @@ class Scale extends Element {
                     case 'right':
                         left -= width;
                         break;
+                    case 'inner':
+                        if (i === ilen - 1) {
+                            left -= width;
+                        } else if (i > 0) {
+                            left -= width / 2;
+                        }
+                        break;
                 }
                 backdrop = {
                     left,
@@ -21500,7 +21507,7 @@ function getResolver(resolverCache, scopes, prefixes) {
     }
     return cached;
 }
-const hasFunction = (value)=>helpers_segment.isObject(value) && Object.getOwnPropertyNames(value).reduce((acc, key)=>acc || helpers_segment.isFunction(value[key]), false);
+const hasFunction = (value)=>helpers_segment.isObject(value) && Object.getOwnPropertyNames(value).some((key)=>helpers_segment.isFunction(value[key]));
 function needContext(proxy, names) {
     const { isScriptable , isIndexable  } = helpers_segment._descriptors(proxy);
     for (const prop of names){
@@ -21514,7 +21521,7 @@ function needContext(proxy, names) {
     return false;
 }
 
-var version = "4.4.0";
+var version = "4.4.1";
 
 const KNOWN_POSITIONS = [
     'top',
@@ -25724,7 +25731,7 @@ class Tooltip extends Element {
             return [];
         }
         if (!inChartArea) {
-            return lastActive;
+            return lastActive.filter((i)=>this.chart.data.datasets[i.datasetIndex] && this.chart.getDatasetMeta(i.datasetIndex).controller.getParsed(i.index) !== undefined);
         }
         const active = this.chart.getElementsAtEventForMode(e, options.mode, options, replay);
         if (options.reverse) {
@@ -27516,7 +27523,7 @@ exports.scales = scales;
 
 "use strict";
 /*!
- * Chart.js v4.4.0
+ * Chart.js v4.4.1
  * https://www.chartjs.org
  * (c) 2023 Chart.js Contributors
  * Released under the MIT License
@@ -29852,8 +29859,10 @@ function getMaximumSize(canvas, bbWidth, bbHeight, aspectRatio) {
                 return false;
             }
         };
-        window.addEventListener('test', null, options);
-        window.removeEventListener('test', null, options);
+        if (_isDomSupported()) {
+            window.addEventListener('test', null, options);
+            window.removeEventListener('test', null, options);
+        }
     } catch (e) {
     // continue regardless of error
     }
